@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:chatapp/core/constants/app_colors.dart';
 import 'package:chatapp/core/constants/app_styles.dart';
 import 'package:chatapp/core/extensions/mediaquery_size.dart';
@@ -7,7 +6,6 @@ import 'package:chatapp/features/home/data/models/chat_model.dart';
 import 'package:chatapp/features/home/presentation/manager/chat_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:responsive_framework/responsive_row_column.dart';
 import 'package:responsive_framework/responsive_value.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
