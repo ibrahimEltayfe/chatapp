@@ -90,8 +90,8 @@ class Chats extends ConsumerWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      _BuildReceiverName(name:"ibrahim ezz"),
-                                      SizedBox(
+                                      const _BuildReceiverName(name:"ibrahim ezz"),
+                                      const SizedBox(
                                         height: 10,
                                       ),
                                       _BuildLastMessage(lastMessage.text??''),
@@ -104,11 +104,11 @@ class Chats extends ConsumerWidget {
                                 ),
 
                                 ResponsiveConstraints(
-                                  constraint: BoxConstraints.tightFor(
+                                  constraint: const BoxConstraints.tightFor(
                                       width: 65,height: 100
                                   ),
 
-                                  constraintsWhen: [
+                                  constraintsWhen: const [
                                     Condition.largerThan(
                                         name: TABLET,
                                         value: BoxConstraints.tightFor(
@@ -135,7 +135,7 @@ class Chats extends ConsumerWidget {
                                     columnSpacing: 10,
                                     rowSpacing: 10,
 
-                                    children: [
+                                    children: const [
                                       ResponsiveRowColumnItem(
                                           rowFlex: 1,
                                           rowOrder: 1,
@@ -264,11 +264,11 @@ class _BuildUnSeenMessageNumber extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
         color: AppColors.green,
         shape: BoxShape.rectangle,
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
         border: Border.all(color: AppColors.white),
       ),
       child: Text(
