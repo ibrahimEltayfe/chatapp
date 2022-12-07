@@ -1,0 +1,1 @@
+enum TextFieldLocation{first,middle,last}
