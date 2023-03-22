@@ -1,4 +1,4 @@
-part of 'chat_riverpod.dart';
+part of 'chat_provider.dart';
 
 abstract class ChatState extends Equatable {
   const ChatState();

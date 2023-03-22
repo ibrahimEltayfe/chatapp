@@ -1,9 +1,10 @@
 import 'dart:developer';
 import 'package:chatapp/core/constants/app_colors.dart';
+import 'package:chatapp/core/constants/app_routes.dart';
 import 'package:chatapp/core/constants/app_styles.dart';
 import 'package:chatapp/core/extensions/mediaquery_size.dart';
 import 'package:chatapp/features/home/data/models/chat_model.dart';
-import 'package:chatapp/features/home/presentation/manager/chat_riverpod.dart';
+import 'package:chatapp/features/home/presentation/manager/chat_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_framework/responsive_row_column.dart';
@@ -29,15 +30,16 @@ class Chats extends ConsumerWidget {
     return StreamBuilder(
       stream: ref.read(chatProvider.notifier).fetchUserChatIds(),
       builder: (context,snapshot) {
+
         if(snapshot.connectionState == ConnectionState.waiting){
           return const Center(child: CircularProgressIndicator(color: AppColors.primaryColor,),);
         }
 
-        if(snapshot.data == null || snapshot.data?.data()?['chats'].isEmpty){
+        if(snapshot.data == null || snapshot.data!.isEmpty){
           return Text("No Data");
         }
 
-        List ids = snapshot.data?.data()?['chats'] ?? [];
+        List<String> ids =snapshot.data!.cast<String>();
 
         return FutureBuilder<List<ChatModel>>(
             future: ref.read(chatProvider.notifier).fetchChats(ids),
@@ -63,92 +65,95 @@ class Chats extends ConsumerWidget {
 
                           final lastMessage = snapshot.data!.last;
 
-                          return Container(
-                            width: context.width,
-                            height: 100,
-                            alignment: Alignment.centerLeft,
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            decoration: const BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(color: AppColors.lightGrey, width: 1),
-                              ),
-                            ),
-                            child: Row(
-                              children: [
-                                const SizedBox(
-                                  width: 70,
-                                  height: 120,
-                                  child: _BuildImageAvatar(),
-                                ),
-                                const SizedBox(
-                                  width: 30,
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      const _BuildReceiverName(name:"ibrahim ezz"),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      _BuildLastMessage(lastMessage.text??''),
-                                    ],
-                                  ),
-                                ),
-
-                                const SizedBox(
-                                  width: 5,
-                                ),
-
-                                ResponsiveConstraints(
-                                  constraint: const BoxConstraints.tightFor(
-                                      width: 65,height: 100
+                          return InkWell(
+                            onTap: (){
+                              Navigator.pushNamed(context, AppRoutes.chat, arguments: chatsData[i].chatId??'');
+                            },
+                            child: Container(
+                              width: context.width,
+                              height: 100,
+                              alignment: Alignment.centerLeft,
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              decoration: getBottomBorderBoxDecoration(),
+                              child: Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 70,
+                                    height: 120,
+                                    child: _BuildImageAvatar(),
                                   ),
 
-                                  constraintsWhen: const [
-                                    Condition.largerThan(
-                                        name: TABLET,
-                                        value: BoxConstraints.tightFor(
-                                            width:120,
-                                            height:65
-                                        )
-                                    )
-                                  ],
+                                  const SizedBox(
+                                    width: 30,
+                                  ),
 
-                                  child: ResponsiveRowColumn(
-                                    layout:isSmallerThanDesktop(context)
-                                        ? ResponsiveRowColumnType.COLUMN
-                                        : ResponsiveRowColumnType.ROW,
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        const _BuildReceiverName(name:"ibrahim ezz"),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        _BuildLastMessage(lastMessage.text??''),
+                                      ],
+                                    ),
+                                  ),
 
-                                    columnMainAxisAlignment: MainAxisAlignment.start,
-                                    columnCrossAxisAlignment: CrossAxisAlignment.center,
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
 
-                                    rowCrossAxisAlignment: CrossAxisAlignment.center,
-                                    rowMainAxisAlignment: MainAxisAlignment.start,
+                                  ResponsiveConstraints(
+                                    constraint: const BoxConstraints.tightFor(
+                                        width: 65,height: 100
+                                    ),
 
-                                    rowPadding: EdgeInsets.symmetric(horizontal: 10),
-                                    columnPadding: const EdgeInsets.only(top: 26, left: 8,right: 10),
-
-                                    columnSpacing: 10,
-                                    rowSpacing: 10,
-
-                                    children: const [
-                                      ResponsiveRowColumnItem(
-                                          rowFlex: 1,
-                                          rowOrder: 1,
-                                          child: _BuildLastMessageTime()
-                                      ),
-
-                                      ResponsiveRowColumnItem(
-                                        rowOrder: 0,
-                                        rowFlex: 1,
-                                        child: _BuildUnSeenMessageNumber(),
+                                    constraintsWhen: const [
+                                      Condition.largerThan(
+                                          name: TABLET,
+                                          value: BoxConstraints.tightFor(
+                                              width:120,
+                                              height:65
+                                          )
                                       )
                                     ],
+
+                                    child: ResponsiveRowColumn(
+                                      layout:isSmallerThanDesktop(context)
+                                          ? ResponsiveRowColumnType.COLUMN
+                                          : ResponsiveRowColumnType.ROW,
+
+                                      columnMainAxisAlignment: MainAxisAlignment.start,
+                                      columnCrossAxisAlignment: CrossAxisAlignment.center,
+
+                                      rowCrossAxisAlignment: CrossAxisAlignment.center,
+                                      rowMainAxisAlignment: MainAxisAlignment.start,
+
+                                      rowPadding: const EdgeInsets.symmetric(horizontal: 10),
+                                      columnPadding: const EdgeInsets.only(top: 26, left: 8,right: 10),
+
+                                      columnSpacing: 10,
+                                      rowSpacing: 10,
+
+                                      children: [
+                                        ResponsiveRowColumnItem(
+                                            rowFlex: 1,
+                                            rowOrder: 1,
+                                            child: _BuildLastMessageTime(lastMessage.createdAt!)
+                                        ),
+
+                                        ResponsiveRowColumnItem(
+                                          rowOrder: 0,
+                                          rowFlex: 1,
+                                          child: _BuildUnSeenMessageNumber(),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           );
                         }
@@ -241,14 +246,22 @@ class _BuildLastMessage extends StatelessWidget {
 }
 
 class _BuildLastMessageTime extends StatelessWidget {
-  const _BuildLastMessageTime({Key? key}) : super(key: key);
+  final DateTime createdAt;
+  const _BuildLastMessageTime(this.createdAt,{Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final String period;
+
+    if(createdAt.hour > 12 && createdAt.hour <= 24){
+      period = 'PM';
+    }else{
+      period = 'AM';
+    }
     return Text(
-      "14:30",
+      "${createdAt.toUtc().hour}:${createdAt.minute} $period",
       maxLines: 1,
-      style: getBoldTextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+      style: getBoldTextStyle(fontSize: 15),
       softWrap: false,
       overflow: TextOverflow.visible,
     );

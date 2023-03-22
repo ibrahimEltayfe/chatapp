@@ -32,43 +32,23 @@ TextStyle getBoldTextStyle({
   return _getTextStyle(fontSize,color,fontFamily,fontWeight,textDecoration);
 }
 
-//button styles
-ButtonStyle getRegularButtonStyle({required Color bgColor,required double radius}){
-  return ButtonStyle(
-    elevation: MaterialStateProperty.all(0),
-    backgroundColor: MaterialStateProperty.all<Color>(bgColor),
-    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius),
-            side: BorderSide.none
-        )
+//box decorations
+BoxDecoration getBottomBorderBoxDecoration(){
+  return const BoxDecoration(
+    border: Border(
+      bottom: BorderSide(color: AppColors.lightGrey, width: 1),
     ),
-    overlayColor:MaterialStateProperty.all<Color>(AppColors.white.withOpacity(0.05)),
   );
 }
 
-ButtonStyle getBorderedButtonStyle({required Color bgColor,required double radius}){
-  return ButtonStyle(
-      backgroundColor: MaterialStateProperty.all<Color>(bgColor),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(radius),
-              side: BorderSide(color: AppColors.grey)
-          )
-      ),
-      elevation: MaterialStateProperty.all(0)
-  );
-}
-
-ButtonStyle getDialogButtonStyle(bool isAllow){
-  return ButtonStyle(
-      backgroundColor: MaterialStateProperty.all<Color>(isAllow?AppColors.primaryColor:AppColors.lightGrey),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-              side: BorderSide.none
-          )
-      ),
-      elevation: MaterialStateProperty.all(0)
+BoxDecoration messageContainerDecoration({required Color color,required bool isSender}){
+  return BoxDecoration(
+    color: color,
+    borderRadius: BorderRadiusDirectional.only(
+      topStart: Radius.circular(20),
+      topEnd: Radius.circular(isSender?0:20),
+      bottomStart: Radius.circular(isSender?20:0),
+      bottomEnd: Radius.circular(20),
+    ),
   );
 }

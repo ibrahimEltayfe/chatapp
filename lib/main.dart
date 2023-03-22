@@ -15,7 +15,7 @@ void main() async {
     container: container,
     child: DevicePreview(
       enabled: false,
-      builder: (context) => MyApp(), // Wrap your app
+      builder: (context) => const MyApp(), // Wrap your app
     ),
   ));
 }
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
 
           defaultScale: true,
           breakpoints: [
-            const ResponsiveBreakpoint.resize(450, name: MOBILE),
+            const ResponsiveBreakpoint.resize(350, name: MOBILE),
             const ResponsiveBreakpoint.autoScale(800, name: TABLET),
             const ResponsiveBreakpoint.autoScale(1000, name: TABLET),
             const ResponsiveBreakpoint.resize(1200, name: DESKTOP),

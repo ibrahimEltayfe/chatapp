@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
@@ -5,11 +7,12 @@ import 'package:flutter/foundation.dart';
 part 'generated_models/message_model.freezed.dart';
 part 'generated_models/message_model.g.dart';
 
-@freezed
 @JsonSerializable(createToJson: true)
+@freezed
+
 class MessageModel with _$MessageModel{
   const factory MessageModel({
-    String? attachmentUrl,
+    List<dynamic>? attachments,
     String? id,
     bool? isSeen,
     String? senderId,
@@ -20,6 +23,7 @@ class MessageModel with _$MessageModel{
 
   factory MessageModel.fromJson(Map<String, dynamic> json){
     json['createdAt'] = (json['createdAt'] as Timestamp).toDate();
+
     return _$MessageModelFromJson(json);
   }
 

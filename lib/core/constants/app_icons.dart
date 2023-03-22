@@ -8,5 +8,6 @@ class AppIcons{
   static const IconData message = FontAwesomeIcons.solidComments;
   static const IconData profile = FontAwesomeIcons.solidUser;
   static const IconData list = FontAwesomeIcons.barsStaggered;
+  static const IconData back = FontAwesomeIcons.arrowLeft;
 
 }

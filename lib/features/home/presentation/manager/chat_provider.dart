@@ -18,7 +18,7 @@ class ChatProvider extends StateNotifier<ChatState> {
   final ChatRepository chatRepository;
   ChatProvider(this.chatRepository) : super(ChatInitial());
 
-  Stream<DocumentSnapshot<Map<String, dynamic>>> fetchUserChatIds() async*{
+  Stream<List<dynamic>> fetchUserChatIds() async*{
     yield* chatRepository.getUserChatIds();
   }
 
@@ -26,7 +26,7 @@ class ChatProvider extends StateNotifier<ChatState> {
     yield* chatRepository.getChatMessages(chatId);
   }
 
-  Future<List<ChatModel>> fetchChats(List userChatIds) async{
+  Future<List<ChatModel>> fetchChats(List<String> userChatIds) async{
     return await chatRepository.getChats(userChatIds);
 
     /*.asyncMap(

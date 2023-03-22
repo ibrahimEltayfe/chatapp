@@ -1,4 +1,5 @@
 import 'package:chatapp/features/auth/presentation/pages/login_page.dart';
+import 'package:chatapp/features/chat/presentation/pages/chat_page.dart';
 import 'package:flutter/material.dart';
 import 'core/constants/app_routes.dart';
 import 'features/auth/presentation/pages/decide_page.dart';
@@ -24,6 +25,12 @@ class RoutesManager{
       case AppRoutes.decide:
         return MaterialPageRoute(
             builder: (_)=> DecidePage(),
+            settings: settings
+        );
+
+      case AppRoutes.chat:
+        return MaterialPageRoute(
+            builder: (_)=> ChatPage(chatId:settings.arguments as String),
             settings: settings
         );
 

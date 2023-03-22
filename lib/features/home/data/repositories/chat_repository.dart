@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:chatapp/core/network_info/network_checker.dart';
+import 'package:chatapp/core/utils/network_checker.dart';
 import 'package:chatapp/features/home/data/models/chat_model.dart';
 import 'package:chatapp/features/home/data/models/message_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,25 +22,18 @@ class ChatRepository{
   final ChatRemote chatRemote;
   ChatRepository(this.networkInfo, this.chatRemote);
 
-  Stream<DocumentSnapshot<Map<String, dynamic>>> getUserChatIds(){
+  Stream<List<dynamic>> getUserChatIds() async*{
     final chatIds = chatRemote.getUserChatIds();
-
-    return chatIds.asyncMap((ids){
-      return ids;
-    });
+    await for(DocumentSnapshot<Map<String, dynamic>> ids in chatIds){
+      yield ids.data()!['chats'] as List<dynamic>;
+    }
   }
 
-  Future<List<ChatModel>> getChats(List userChatIds) async{
-    /*if(await networkInfo.isConnected) {
-      yield const Left(NoInternetFailure(AppErrors.noInternet));
-      return;
-    }*/
-
-
-     final chats = await chatRemote.getUserChats(userChatIds);
-     return chats.docs.map((chat){
-       return chat.data();
-     }).toList();
+  Future<List<ChatModel>> getChats(List<String> userChatIds) async{
+    final chats = await chatRemote.getUserChats(userChatIds);
+    return chats.docs.map((chat){
+      return chat.data();
+    }).toList();
 
 
 /*
@@ -56,18 +49,16 @@ class ChatRepository{
   }
 
   Stream<List<MessageModel>> getChatMessages(String chatId) async*{
-
-    List<MessageModel> dataToReturn = [];
-
     final chats = chatRemote.getChatMessages(chatId);
 
     await for (QuerySnapshot<MessageModel> q in chats){
+      List<MessageModel> messages = [];
 
-      for (var doc in q.docs) {
-        dataToReturn.add(doc.data());
+      for (QueryDocumentSnapshot<MessageModel> doc in q.docs) {
+        messages.add(doc.data());
       }
 
-      yield dataToReturn;
+      yield messages;
     }
 
   }

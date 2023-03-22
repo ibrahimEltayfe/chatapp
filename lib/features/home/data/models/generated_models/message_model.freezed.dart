@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MessageModel {
-  String? get attachmentUrl => throw _privateConstructorUsedError;
+  List<dynamic>? get attachments => throw _privateConstructorUsedError;
   String? get id => throw _privateConstructorUsedError;
   bool? get isSeen => throw _privateConstructorUsedError;
   String? get senderId => throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ abstract class $MessageModelCopyWith<$Res> {
       _$MessageModelCopyWithImpl<$Res, MessageModel>;
   @useResult
   $Res call(
-      {String? attachmentUrl,
+      {List<dynamic>? attachments,
       String? id,
       bool? isSeen,
       String? senderId,
@@ -58,7 +58,7 @@ class _$MessageModelCopyWithImpl<$Res, $Val extends MessageModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? attachmentUrl = freezed,
+    Object? attachments = freezed,
     Object? id = freezed,
     Object? isSeen = freezed,
     Object? senderId = freezed,
@@ -67,10 +67,10 @@ class _$MessageModelCopyWithImpl<$Res, $Val extends MessageModel>
     Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
-      attachmentUrl: freezed == attachmentUrl
-          ? _value.attachmentUrl
-          : attachmentUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+      attachments: freezed == attachments
+          ? _value.attachments
+          : attachments // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -108,7 +108,7 @@ abstract class _$$_MessageModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? attachmentUrl,
+      {List<dynamic>? attachments,
       String? id,
       bool? isSeen,
       String? senderId,
@@ -128,7 +128,7 @@ class __$$_MessageModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? attachmentUrl = freezed,
+    Object? attachments = freezed,
     Object? id = freezed,
     Object? isSeen = freezed,
     Object? senderId = freezed,
@@ -137,10 +137,10 @@ class __$$_MessageModelCopyWithImpl<$Res>
     Object? createdAt = freezed,
   }) {
     return _then(_$_MessageModel(
-      attachmentUrl: freezed == attachmentUrl
-          ? _value.attachmentUrl
-          : attachmentUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
+      attachments: freezed == attachments
+          ? _value._attachments
+          : attachments // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -173,16 +173,24 @@ class __$$_MessageModelCopyWithImpl<$Res>
 
 class _$_MessageModel with DiagnosticableTreeMixin implements _MessageModel {
   const _$_MessageModel(
-      {this.attachmentUrl,
+      {final List<dynamic>? attachments,
       this.id,
       this.isSeen,
       this.senderId,
       this.text,
       this.type,
-      this.createdAt});
+      this.createdAt})
+      : _attachments = attachments;
 
+  final List<dynamic>? _attachments;
   @override
-  final String? attachmentUrl;
+  List<dynamic>? get attachments {
+    final value = _attachments;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final String? id;
   @override
@@ -198,7 +206,7 @@ class _$_MessageModel with DiagnosticableTreeMixin implements _MessageModel {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'MessageModel(attachmentUrl: $attachmentUrl, id: $id, isSeen: $isSeen, senderId: $senderId, text: $text, type: $type, createdAt: $createdAt)';
+    return 'MessageModel(attachments: $attachments, id: $id, isSeen: $isSeen, senderId: $senderId, text: $text, type: $type, createdAt: $createdAt)';
   }
 
   @override
@@ -206,7 +214,7 @@ class _$_MessageModel with DiagnosticableTreeMixin implements _MessageModel {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'MessageModel'))
-      ..add(DiagnosticsProperty('attachmentUrl', attachmentUrl))
+      ..add(DiagnosticsProperty('attachments', attachments))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('isSeen', isSeen))
       ..add(DiagnosticsProperty('senderId', senderId))
@@ -220,8 +228,8 @@ class _$_MessageModel with DiagnosticableTreeMixin implements _MessageModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_MessageModel &&
-            (identical(other.attachmentUrl, attachmentUrl) ||
-                other.attachmentUrl == attachmentUrl) &&
+            const DeepCollectionEquality()
+                .equals(other._attachments, _attachments) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.isSeen, isSeen) || other.isSeen == isSeen) &&
             (identical(other.senderId, senderId) ||
@@ -234,7 +242,14 @@ class _$_MessageModel with DiagnosticableTreeMixin implements _MessageModel {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, attachmentUrl, id, isSeen, senderId, text, type, createdAt);
+      runtimeType,
+      const DeepCollectionEquality().hash(_attachments),
+      id,
+      isSeen,
+      senderId,
+      text,
+      type,
+      createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -245,7 +260,7 @@ class _$_MessageModel with DiagnosticableTreeMixin implements _MessageModel {
 
 abstract class _MessageModel implements MessageModel {
   const factory _MessageModel(
-      {final String? attachmentUrl,
+      {final List<dynamic>? attachments,
       final String? id,
       final bool? isSeen,
       final String? senderId,
@@ -254,7 +269,7 @@ abstract class _MessageModel implements MessageModel {
       final DateTime? createdAt}) = _$_MessageModel;
 
   @override
-  String? get attachmentUrl;
+  List<dynamic>? get attachments;
   @override
   String? get id;
   @override

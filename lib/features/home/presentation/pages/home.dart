@@ -1,17 +1,12 @@
-import 'dart:developer';
 import 'package:chatapp/core/constants/app_colors.dart';
 import 'package:chatapp/core/constants/app_icons.dart';
 import 'package:chatapp/core/constants/app_styles.dart';
-import 'package:chatapp/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_framework/responsive_value.dart';
-
 import '../../../../core/constants/responsive_conditions.dart';
-import '../../../../reusable_components/responsive/fittted_text.dart';
-import '../widgets/chat.dart';
-
+import '../widgets/chats.dart';
 
 class Home extends ConsumerWidget {
   const Home({Key? key}) : super(key: key);
@@ -55,6 +50,7 @@ class Home extends ConsumerWidget {
     );
   }
 }
+
 class _BuildListIcon extends StatelessWidget {
   const _BuildListIcon
       ({Key? key}) : super(key: key);
@@ -178,7 +174,6 @@ class _BottomNavBar extends StatefulWidget {
   @override
   State<_BottomNavBar> createState() => _BottomNavBarState();
 }
-
 class _BottomNavBarState extends State<_BottomNavBar> {
   int currentIndex = 0;
 

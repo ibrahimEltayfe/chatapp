@@ -39,7 +39,7 @@ class ChatRemote{
          .where('chatId' ,whereIn: userChatIds)
          .withConverter<ChatModel>(
        fromFirestore: (snapshot, options) {
-         return ChatModel.fromJson(snapshot.data()??{});
+         return ChatModel.fromJson(snapshot.data()!);
        },
        toFirestore: (value, options) {
          return {};//todo:
@@ -61,7 +61,15 @@ class ChatRemote{
         .orderBy('createdAt',descending: false)
         .withConverter<MessageModel>(
           fromFirestore: (snapshot, options) {
-            return MessageModel.fromJson(snapshot.data()??{});
+            try{
+              final a = MessageModel.fromJson(snapshot.data()!);
+              log(a.toString());
+            }catch(e){
+              log(e.toString());
+
+            }
+
+            return MessageModel.fromJson(snapshot.data()!);
           },
           toFirestore: (value, options) {
             return {};//todo:
